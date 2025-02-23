@@ -55,28 +55,3 @@ export const getUserLikes = async (userId: number): Promise<MenuLike[]> => {
         conn.release();
     }
 };
-
-export const getMenuLikesCount = async (): Promise<{ menu_id: number; count: number }[]> => {
-    const conn = await pool.getConnection();
-    try {
-        const rows = await conn.query(
-            "SELECT menu_id, COUNT(*) as count FROM menu_likes GROUP BY menu_id"
-        );
-        return rows;
-    } finally {
-        conn.release();
-    }
-};
-
-export const getMenuLikesCountById = async (menuId: number): Promise<number> => {
-    const conn = await pool.getConnection();
-    try {
-        const [rows] = await conn.query(
-            "SELECT COUNT(*) as count FROM menu_likes WHERE menu_id = ?",
-            [menuId]
-        );
-        return rows[0].count;
-    } finally {
-        conn.release();
-    }
-};
