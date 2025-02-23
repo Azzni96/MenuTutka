@@ -1,0 +1,17 @@
+# Node.js riippuvuudet
+node_modules/
+
+# TypeScript build-tiedostot
+dist/
+*.tsbuildinfo
+
+# Ympäristömuuttujat (backendin API-avaimet, tietokantayhteydet)
+.env
+.env.local
+
+# Editorien asetukset
+.vscode/
+.idea/
+
+# Lokitiedostot
+*.log

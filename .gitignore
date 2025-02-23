@@ -1,0 +1,16 @@
+# Yleiset tiedostot
+node_modules/
+dist/
+*.log
+*.lock
+.vscode/
+.idea/
+.DS_Store
+
+# TypeScript
+*.tsbuildinfo
+
+# Ympäristökohtaiset tiedostot
+.env
+.env.local
+

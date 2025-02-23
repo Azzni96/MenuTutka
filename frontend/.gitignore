@@ -1,0 +1,14 @@
+# Node.js riippuvuudet
+node_modules/
+
+# Vite build-tiedostot
+dist/
+.vite/
+.cache/
+
+# Editorien asetukset
+.vscode/
+.idea/
+
+# Lokitiedostot
+*.log
