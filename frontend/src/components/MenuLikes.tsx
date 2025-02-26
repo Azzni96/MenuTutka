@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useReducer } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
@@ -8,17 +8,53 @@ type Like = {
   menu_id: number;
 };
 
+type LikeState = {
+  likes: Like[];
+  error: string | null;
+};
+
+type LikeAction =
+  | { type: "SET_LIKES"; payload: Like[] }
+  | { type: "ADD_LIKE"; payload: Like }
+  | { type: "REMOVE_LIKE"; payload: number }
+  | { type: "SET_ERROR"; payload: string | null };
+
+const likeReducer = (state: LikeState, action: LikeAction): LikeState => {
+  switch (action.type) {
+    case "SET_LIKES":
+      return { ...state, likes: action.payload };
+    case "ADD_LIKE":
+      return { ...state, likes: [...state.likes, action.payload] };
+    case "REMOVE_LIKE":
+      return {
+        ...state,
+        likes: state.likes.filter((like) => like.menu_id !== action.payload),
+      };
+    case "SET_ERROR":
+      return { ...state, error: action.payload };
+    default:
+      return state;
+  }
+};
+
 const MenuLikes = () => {
   const { menuId } = useParams();
-  const [likes, setLikes] = useState<Like[]>([]);
-  const [error, setError] = useState<string | null>(null);
+
+  const initialState: LikeState = {
+    likes: [],
+    error: null,
+  };
+
+  const [state, dispatch] = useReducer(likeReducer, initialState);
 
   const fetchLikes = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/menu/${Number(menuId)}/likes`);
-      setLikes(response.data);
+      const response = await axios.get(
+        `http://localhost:3000/api/menu/${Number(menuId)}/likes`
+      );
+      dispatch({ type: "SET_LIKES", payload: response.data });
     } catch (error) {
-      setError("Error fetching likes");
+      dispatch({ type: "SET_ERROR", payload: "Error fetching likes" });
       console.error("Error fetching likes:", error);
     }
   };
@@ -31,7 +67,10 @@ const MenuLikes = () => {
     try {
       const token = localStorage.getItem("token");
       if (!token) {
-        setError("You must be logged in to like a menu.");
+        dispatch({
+          type: "SET_ERROR",
+          payload: "You must be logged in to like a menu.",
+        });
         return;
       }
 
@@ -44,10 +83,16 @@ const MenuLikes = () => {
           },
         }
       );
-      setLikes((prevLikes) => [...prevLikes, { id: Date.now(), user_id: 1, menu_id: Number(menuId) }]); // Mock user_id
-      console.log("Like added successfully");
+
+      const newLike: Like = {
+        id: Date.now(),
+        user_id: 1,
+        menu_id: Number(menuId),
+      };
+
+      dispatch({ type: "ADD_LIKE", payload: newLike });
     } catch (error) {
-      setError("Error adding like");
+      dispatch({ type: "SET_ERROR", payload: "Error adding like" });
       console.error("Error adding like:", error);
     }
   };
@@ -56,7 +101,10 @@ const MenuLikes = () => {
     try {
       const token = localStorage.getItem("token");
       if (!token) {
-        setError("You must be logged in to remove a like.");
+        dispatch({
+          type: "SET_ERROR",
+          payload: "You must be logged in to remove a like.",
+        });
         return;
       }
 
@@ -66,10 +114,10 @@ const MenuLikes = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      setLikes((prevLikes) => prevLikes.filter((like) => like.menu_id !== Number(menuId)));
-      console.log("Like removed successfully");
+
+      dispatch({ type: "REMOVE_LIKE", payload: Number(menuId) });
     } catch (error) {
-      setError("Error removing like");
+      dispatch({ type: "SET_ERROR", payload: "Error removing like" });
       console.error("Error removing like:", error);
     }
   };
@@ -77,9 +125,9 @@ const MenuLikes = () => {
   return (
     <div>
       <h1>Menu Likes</h1>
-      {error && <p>{error}</p>}
+      {state.error && <p>{state.error}</p>}
       <ul>
-        {likes.map((like) => (
+        {state.likes.map((like) => (
           <li key={like.id}>
             <p>User ID: {like.user_id}</p>
           </li>
