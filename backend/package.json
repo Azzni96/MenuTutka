@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon dist/index.js",
+    "start": "nodemon index.ts",
     "dev": "nodemon --ext ts --exec ts-node src/index.ts",
     "build": "tsc",
     "setup:db": "ts-node src/database/setupdb.ts"

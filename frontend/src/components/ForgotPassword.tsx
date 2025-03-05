@@ -8,7 +8,7 @@ const ForgotPassword = () => {
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     handleSubmit(
-      "http://localhost:3000/api/users/forgot-password",
+      "/api/users/forgot-password",
       { email },
       setMessage
     );

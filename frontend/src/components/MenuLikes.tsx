@@ -50,7 +50,7 @@ const MenuLikes = () => {
   const fetchLikes = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/menu/${Number(menuId)}/likes`
+        `/api/menu/${Number(menuId)}/likes`
       );
       dispatch({ type: "SET_LIKES", payload: response.data });
     } catch (error) {
@@ -75,7 +75,7 @@ const MenuLikes = () => {
       }
 
       await axios.post(
-        `http://localhost:3000/api/menu/likes`,
+        `/api/menu/likes`,
         { menu_id: Number(menuId) },
         {
           headers: {
@@ -108,7 +108,7 @@ const MenuLikes = () => {
         return;
       }
 
-      await axios.delete(`http://localhost:3000/api/menu/likes`, {
+      await axios.delete(`/api/menu/likes`, {
         data: { menu_id: Number(menuId) },
         headers: {
           Authorization: `Bearer ${token}`,

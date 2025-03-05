@@ -18,7 +18,7 @@ const AdminFeedbackList = () => {
           navigate('/login');
           return;
         }
-        const response = await axios.get("http://localhost:3000/api/feedbacks", {
+        const response = await axios.get("/api/feedbacks", {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -41,7 +41,7 @@ const AdminFeedbackList = () => {
         navigate('/login');
         return;
       }
-      await axios.delete(`http://localhost:3000/api/feedbacks/${id}`, {
+      await axios.delete(`/api/feedbacks/${id}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

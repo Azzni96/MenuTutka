@@ -19,7 +19,7 @@ const AdminRestaurantList = () => {
           navigate('/login');
           return;
         }
-        const response = await axios.get("http://localhost:3000/api/restaurants", {
+        const response = await axios.get("/api/restaurants", {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -42,7 +42,7 @@ const AdminRestaurantList = () => {
         navigate('/login');
         return;
       }
-      await axios.delete(`http://localhost:3000/api/restaurants/${id}`, {
+      await axios.delete(`/api/restaurants/${id}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

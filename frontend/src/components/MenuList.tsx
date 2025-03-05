@@ -20,7 +20,7 @@ const MenuList = () => {
 
     const fetchMenus = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/menus/${restaurantId}`);
+        const response = await axios.get(`/api/menus/${restaurantId}`);
         setMenus(response.data);
       } catch (error: any) {
         setError("Error fetching menus");
@@ -37,7 +37,7 @@ const MenuList = () => {
         const token = localStorage.getItem("token");
         if (!token) return;
 
-        const response = await axios.get(`http://localhost:3000/api/menuLikes/user/likes`, {
+        const response = await axios.get(`/api/menuLikes/user/likes`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -62,7 +62,7 @@ const MenuList = () => {
 
       if (likedMenus.includes(menuId)) {
         // Remove like
-        await axios.delete(`http://localhost:3000/api/menuLikes`, {
+        await axios.delete(`/api/menuLikes`, {
           data: { menu_id: menuId },
           headers: {
             Authorization: `Bearer ${token}`,
@@ -72,7 +72,7 @@ const MenuList = () => {
       } else {
         // Add like
         await axios.post(
-          `http://localhost:3000/api/menuLikes`,
+          `/api/menuLikes`,
           { menu_id: menuId },
           {
             headers: {
