@@ -10,7 +10,7 @@ const SignupPage: React.FC = () => {
     const handleSignup = async () => {
         try {
             const response = await axios.post(
-                "http://localhost:3000/api/users/signup",
+                "/api/users/signup",
                 { name, email, password },
                 { headers: { "Content-Type": "application/json" } }
             );

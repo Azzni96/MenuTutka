@@ -16,7 +16,7 @@ const Signup = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:3000/api/users/signup", formData);
+      const response = await axios.post("/api/users/signup", formData);
       setMessage(response.data.message);
     } catch (error: any) {
       setMessage(error.response?.data.error || "An error occurred");

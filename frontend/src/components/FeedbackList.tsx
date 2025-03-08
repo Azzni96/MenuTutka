@@ -14,7 +14,7 @@ const FeedbackList = () => {
   useEffect(() => {
     const fetchFeedbacks = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/feedbacks/${restaurantId}`);
+        const response = await axios.get(`/api/feedbacks/${restaurantId}`);
         setFeedbacks(response.data);
       } catch (error) {
         console.error("Error fetching feedbacks:", error);
@@ -33,7 +33,7 @@ const FeedbackList = () => {
         navigate('/login');
         return;
       }
-      const response = await axios.post("http://localhost:3000/api/feedbacks/submit", {
+      const response = await axios.post("/api/feedbacks/submit", {
         restaurant_id: restaurantId,
         comment,
         rating

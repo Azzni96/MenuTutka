@@ -6,7 +6,7 @@ export const fetchRestaurants = async (req: Request, res: Response, next:NextFun
         const restaurants = await getAllRestaurants();
         const restaurantsWithImages = restaurants.map((restaurant) => ({
             ...restaurant,
-            image: restaurant.image ? `http://localhost:3000/uploads/${restaurant.image}` : null,
+            image: restaurant.image ? `/uploads/${restaurant.image}` : null,
         }))
         res.status(200).json(restaurantsWithImages);
         

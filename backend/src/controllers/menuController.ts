@@ -8,7 +8,7 @@ export const fetchMenus = async (req: Request, res: Response): Promise<void> => 
         
         const menusWithImages = menus.map((menu: Menu) => ({
             ...menu,
-            image: menu.image ? `http://localhost:3000/uploads/${menu.image}` : null,
+            image: menu.image ? `/uploads/${menu.image}` : null,
         }));
         res.status(200).json(menusWithImages);
     } catch (error) {
@@ -35,7 +35,7 @@ export const fetchAllMenus = async (req: Request, res: Response): Promise<void> 
     const menus = await getAllMenus();
     const menusWithImages = menus.map((menu: Menu) => ({
       ...menu,
-      image: menu.image ? `http://localhost:3000/uploads/${menu.image}` : null,
+      image: menu.image ? `/uploads/${menu.image}` : null,
     }));
     res.status(200).json(menusWithImages);
   } catch (error) {

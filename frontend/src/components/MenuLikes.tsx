@@ -17,7 +17,7 @@ const MenuLikes = () => {
   useEffect(() => {
     const fetchLikes = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/menu/${menuId}/likes`);
+        const response = await axios.get(`/api/menu/${menuId}/likes`);
         setLikes(response.data);
       } catch (error) {
         setError("Error fetching likes");
@@ -27,7 +27,7 @@ const MenuLikes = () => {
 
     const fetchLikesCount = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/menu/${menuId}/count`);
+        const response = await axios.get(`/api/menu/${menuId}/count`);
         setLikesCount(response.data.count);
       } catch (error) {
         setError("Error fetching likes count");
@@ -48,7 +48,7 @@ const MenuLikes = () => {
       }
 
       await axios.post(
-        `http://localhost:3000/api/menu/likes`,
+        `/api/menu/likes`,
         { menu_id: menuId },
         {
           headers: {
@@ -72,7 +72,7 @@ const MenuLikes = () => {
         return;
       }
 
-      await axios.delete(`http://localhost:3000/api/menu/likes`, {
+      await axios.delete(`/api/menu/likes`, {
         data: { menu_id: menuId },
         headers: {
           Authorization: `Bearer ${token}`,

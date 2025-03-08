@@ -17,7 +17,7 @@ const AdminMenuList = () => {
           navigate('/login');
           return;
         }
-        const response = await axios.get("http://localhost:3000/api/menus", {
+        const response = await axios.get("/api/menus", {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -40,7 +40,7 @@ const AdminMenuList = () => {
         navigate('/login');
         return;
       }
-      await axios.delete(`http://localhost:3000/api/menus/${id}`, { // Include the menu ID in the URL
+      await axios.delete(`/api/menus/${id}`, { // Include the menu ID in the URL
         headers: {
           'Authorization': `Bearer ${token}`
         }

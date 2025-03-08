@@ -16,7 +16,7 @@ const RestaurantsPage: React.FC = () => {
         const fetchRestaurants = async () => {
             const token = localStorage.getItem("authToken");
             try {
-                const response = await axios.get("http://localhost:3000/api/restaurants", {
+                const response = await axios.get("/api/restaurants", {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },

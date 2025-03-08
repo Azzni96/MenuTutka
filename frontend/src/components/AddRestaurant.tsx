@@ -42,7 +42,7 @@ const AddRestaurant = () => {
     const token = localStorage.getItem("token"); // Get the token from localStorage
 
     try {
-      const response = await axios.post("http://localhost:3000/api/restaurants/add", formDataToSend, {
+      const response = await axios.post("/api/restaurants/add", formDataToSend, {
         headers: {
           "Content-Type": "multipart/form-data",
           "Authorization": `Bearer ${token}` // Include the token in the request headers
