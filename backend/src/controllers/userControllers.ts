@@ -74,7 +74,7 @@ export const forgotPassword = async (req: Request, res: Response) => {
             return;
         }
         const resetToken = jwt.sign({ email: user.email }, JWT_SECRET, { expiresIn: "1h" });
-        const resetLink = `http://localhost:3000/reset-password?token=${resetToken}`;
+        const resetLink = `http://azzni.northeurope.cloudapp.azure.com/reset-password?token=${resetToken}`;
         await sendEmail(
             email,
             "Password Reset Request",

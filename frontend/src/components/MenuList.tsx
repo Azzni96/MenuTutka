@@ -9,6 +9,7 @@ const MenuList = () => {
   const [menus, setMenus] = useState<Menu[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [likedMenus, setLikedMenus] = useState<number[]>([]); // Track liked menus
+  const [likesCount, setLikesCount] = useState<{ [key: number]: number }>({}); // Track likes count
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -51,7 +52,7 @@ const MenuList = () => {
 
     const fetchLikesCount = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/menuLikes/count`);
+        const response = await axios.get(`/api/menuLikes/count`);
         const likesData = response.data.reduce((acc: any, like: any) => {
           acc[like.menu_id] = like.count;
           return acc;
@@ -63,6 +64,7 @@ const MenuList = () => {
     };
 
     fetchLikedMenus();
+    fetchLikesCount();
   }, []);
 
   const handleToggleLike = async (menuId: number) => {
@@ -82,6 +84,7 @@ const MenuList = () => {
           },
         });
         setLikedMenus((prev) => prev.filter((id) => id !== menuId));
+        setLikesCount((prev) => ({ ...prev, [menuId]: (prev[menuId] || 1) - 1 }));
       } else {
         // Add like
         await axios.post(
@@ -94,6 +97,7 @@ const MenuList = () => {
           }
         );
         setLikedMenus((prev) => [...prev, menuId]);
+        setLikesCount((prev) => ({ ...prev, [menuId]: (prev[menuId] || 0) + 1 }));
       }
     } catch (error: any) {
       setError(`Error toggling like: ${error.response?.data?.error || error.message}`);
@@ -123,6 +127,7 @@ const MenuList = () => {
             <button onClick={() => handleToggleLike(menu.id)}>
               {likedMenus.includes(menu.id) ? "Unlike" : "Like"}
             </button>
+            <p>Likes: {likesCount[menu.id] || 0}</p>
           </li>
         ))}
       </ul>
