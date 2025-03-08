@@ -10,7 +10,9 @@ const Home = () => {
         <li>Browse restaurants and their menus 🍽️</li>
         <li>Leave feedback (Comment + Rating (1-5)) and like menus 👍</li>
       </ul>
+
     </div>
+
   )
 }
 export default Home

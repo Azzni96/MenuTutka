@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { addMenuLike, removeMenuLike, getMenuLikes, getUserLikes, getMenuLikesCount, getMenuLikesCountById } from "../models/menuLikesModel";
+import { addMenuLike, removeMenuLike, getMenuLikes, getUserLikes } from "../models/menuLikesModel";
 
 export const addLikeHandler = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -57,27 +57,6 @@ export const getUserLikesHandler = async (req: Request, res: Response): Promise<
 
         const likes = await getUserLikes(userId);
         res.status(200).json(likes);
-    } catch (error) {
-        const err = error as Error;
-        res.status(500).json({ error: err.message });
-    }
-};
-
-export const getLikesCountHandler = async (req: Request, res: Response): Promise<void> => {
-    try {
-        const likesCount = await getMenuLikesCount();
-        res.status(200).json(likesCount);
-    } catch (error) {
-        const err = error as Error;
-        res.status(500).json({ error: err.message });
-    }
-};
-
-export const getMenuLikesCountByIdHandler = async (req: Request, res: Response): Promise<void> => {
-    try {
-        const menuId = parseInt(req.params.menuId);
-        const count = await getMenuLikesCountById(menuId);
-        res.status(200).json({ menuId, count });
     } catch (error) {
         const err = error as Error;
         res.status(500).json({ error: err.message });
