@@ -11,7 +11,6 @@ type Like = {
 const MenuLikes = () => {
   const { menuId } = useParams();
   const [likes, setLikes] = useState<Like[]>([]);
-  const [likesCount, setLikesCount] = useState<number>(0);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -25,18 +24,7 @@ const MenuLikes = () => {
       }
     };
 
-    const fetchLikesCount = async () => {
-      try {
-        const response = await axios.get(`/api/menu/${menuId}/count`);
-        setLikesCount(response.data.count);
-      } catch (error) {
-        setError("Error fetching likes count");
-        console.error("Error fetching likes count:", error);
-      }
-    };
-
     fetchLikes();
-    fetchLikesCount();
   }, [menuId]);
 
   const handleAddLike = async () => {
@@ -57,7 +45,6 @@ const MenuLikes = () => {
         }
       );
       setLikes((prevLikes) => [...prevLikes, { id: Date.now(), user_id: 1, menu_id: Number(menuId) }]); // Mock user_id
-      setLikesCount((prevCount) => prevCount + 1);
     } catch (error) {
       setError("Error adding like");
       console.error("Error adding like:", error);
@@ -79,7 +66,6 @@ const MenuLikes = () => {
         },
       });
       setLikes((prevLikes) => prevLikes.filter((like) => like.menu_id !== Number(menuId)));
-      setLikesCount((prevCount) => prevCount - 1);
     } catch (error) {
       setError("Error removing like");
       console.error("Error removing like:", error);
@@ -90,7 +76,6 @@ const MenuLikes = () => {
     <div>
       <h1>Menu Likes</h1>
       {error && <p>{error}</p>}
-      <p>Total Likes: {likesCount}</p>
       <ul>
         {likes.map((like) => (
           <li key={like.id}>
