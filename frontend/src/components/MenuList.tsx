@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { Menu } from "../types/menu"; // Ensure the casing matches the actual file name
+import { Menu } from "../types/menu";
 import AddMenu from "./AddMenu";
 
 const MenuList = () => {
   const { restaurantId } = useParams();
   const [menus, setMenus] = useState<Menu[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [likedMenus, setLikedMenus] = useState<number[]>([]); // Track liked menus
+  const [likedMenus, setLikedMenus] = useState<number[]>([]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -61,7 +61,6 @@ const MenuList = () => {
       }
 
       if (likedMenus.includes(menuId)) {
-        // Remove like
         await axios.delete(`/api/menuLikes`, {
           data: { menu_id: menuId },
           headers: {
@@ -70,7 +69,6 @@ const MenuList = () => {
         });
         setLikedMenus((prev) => prev.filter((id) => id !== menuId));
       } else {
-        // Add like
         await axios.post(
           `/api/menuLikes`,
           { menu_id: menuId },
@@ -97,22 +95,24 @@ const MenuList = () => {
   }
 
   return (
-    <div>
-      <h1>Menus</h1>
+    <div className="max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-lg text-center">
+      <h1 className="text-3xl font-bold mb-6 text-black">Menus</h1>
       <AddMenu />
-      <ul>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
         {menus.map((menu) => (
-          <li key={menu.id}>
-            <h2>{menu.name}</h2>
-            <p>{menu.description}</p>
-            <p>{menu.price}</p>
-            {menu.image && <img src={menu.image} alt={menu.name} />}
-            <button onClick={() => handleToggleLike(menu.id)}>
-              {likedMenus.includes(menu.id) ? "Unlike" : "Like"}
-            </button>
-          </li>
+          <div key={menu.id} className="p-6 border border-gray-300 rounded-lg bg-gray-100 shadow-md hover:shadow-lg transition-shadow duration-300 text-center">
+            <h2 className="text-2xl font-semibold text-black">{menu.name}</h2>
+            <p className="max-w-full overflow-clip font-bold text-nowrap text-ellipsis text-black mb-4">{menu.description}</p>
+            <p className="text-black">{menu.price}</p>
+            {menu.image && <img src={menu.image} alt={menu.name} className="h-72 w-full rounded-t-md object-cover mt-4" />}
+            <div className="my-2 rounded-md border border-gray-400 p-2">
+              <button onClick={() => handleToggleLike(menu.id)} className="block w-full cursor-pointer bg-blue-600 p-2 text-center text-white font-semibold transition-all duration-500 ease-in-out hover:bg-blue-800 mb-2">
+                {likedMenus.includes(menu.id) ? "Unlike" : "Like"}
+              </button>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

@@ -40,14 +40,14 @@ const ResetPassword = () => {
   };
 
   return (
-    <div>
-      <h1>Reset Password</h1>
-      <form onSubmit={handleSubmit}>
-        <input type="password" name="password" placeholder="New Password" onChange={handleChange} />
-        <input type="password" name="confirmPassword" placeholder="Confirm Password" onChange={handleChange} />
-        <button type="submit">Reset Password</button>
+    <div className="max-w-md mx-auto p-8 bg-white rounded-lg shadow-md">
+      <h1 className="text-2xl font-bold mb-4 text-center text-gray-800">Reset Password</h1>
+      <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+        <input type="password" name="password" placeholder="New Password" onChange={handleChange} className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        <input type="password" name="confirmPassword" placeholder="Confirm Password" onChange={handleChange} className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        <button type="submit" className="px-4 py-2 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-700 transition duration-300">Reset Password</button>
       </form>
-      {message && <p>{message}</p>}
+      {message && <p className="text-red-500 text-center mt-4">{message}</p>}
     </div>
   );
 };

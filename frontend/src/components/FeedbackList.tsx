@@ -64,30 +64,43 @@ const FeedbackList = () => {
   };
 
   return (
-    <div>
-      <h1>Feedback</h1>
+    <div className="p-4 bg-white rounded-lg shadow-lg">
+      <h1 className="text-2xl font-bold mb-4 text-black">Feedback</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="comment">Comment:</label>
+          <label htmlFor="comment" className="block mb-2 text-black">Comment:</label>
           <input
             type="text"
             id="comment"
             value={comment}
             onChange={(e) => setComment(e.target.value)}
+            className="border border-gray-300 p-2 w-full rounded-lg text-black"
           />
         </div>
         <div>
-          <label htmlFor="rating">Rating:</label>
+          <label htmlFor="rating" className="block mb-2 text-black">Rating:</label>
           <input
             type="number"
             id="rating"
             value={rating ?? ""}
             onChange={(e) => setRating(Number(e.target.value))}
+            className="border border-gray-300 p-2 w-full rounded-lg text-black"
           />
         </div>
-        <button type="submit">Submit Feedback</button>
+        <button type="submit" className="bg-blue-600 text-white p-2 rounded-lg transition duration-300 ease-in-out hover:bg-blue-800">Submit Feedback</button>
       </form>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
+        {Array.isArray(feedbacks) && feedbacks.map((feedback) => (
+          <div key={feedback.id} className="border border-gray-300 p-4 rounded-lg shadow-md">
+            <h2 className="text-xl font-bold text-black">{feedback.user_id}</h2>
+            <p className="text-black">{feedback.comment}</p>
+            <p className="text-black">Rating: {feedback.rating}</p>
+            <p className="text-black">Submitted on: {new Date(feedback.created_at).toLocaleString()}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

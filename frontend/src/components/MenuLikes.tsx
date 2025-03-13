@@ -44,7 +44,7 @@ const MenuLikes = () => {
           },
         }
       );
-      setLikes((prevLikes) => [...prevLikes, { id: Date.now(), user_id: 1, menu_id: Number(menuId) }]); // Mock user_id
+      setLikes((prevLikes) => [...prevLikes, { id: Date.now(), user_id: 1, menu_id: Number(menuId) }]);
     } catch (error) {
       setError("Error adding like");
       console.error("Error adding like:", error);
@@ -73,18 +73,18 @@ const MenuLikes = () => {
   };
 
   return (
-    <div>
-      <h1>Menu Likes</h1>
-      {error && <p>{error}</p>}
-      <ul>
+    <div className="max-w-md mx-auto p-8 bg-white rounded-lg shadow-md">
+      <h1 className="text-2xl font-bold mb-4 text-center">Menu Likes</h1>
+      {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+      <ul className="list-none p-0">
         {likes.map((like) => (
-          <li key={like.id}>
+          <li key={like.id} className="mb-4 p-4 border border-gray-300 rounded-lg">
             <p>User ID: {like.user_id}</p>
           </li>
         ))}
       </ul>
-      <button onClick={handleAddLike}>Add Like</button>
-      <button onClick={handleRemoveLike}>Remove Like</button>
+      <button onClick={handleAddLike} className="mt-2 px-4 py-2 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-700">Add Like</button>
+      <button onClick={handleRemoveLike} className="mt-2 px-4 py-2 bg-red-500 text-white font-bold rounded-lg hover:bg-red-700">Remove Like</button>
     </div>
   );
 };

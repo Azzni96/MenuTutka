@@ -42,33 +42,33 @@ const Layout = () => {
 
   return (
     <>
-      <div>
-        <nav>
-          <ul>
+      <div className="min-h-screen flex flex-col">
+        <nav className="bg-gray-900 text-white p-6 shadow-lg">
+          <ul className="flex space-x-6">
             {isAuthenticated ? (
               <>
                 <li>
-                  <Link to="/">Home</Link>
+                  <Link to="/" className="hover:underline">Home</Link>
                 </li>
                 <li>
-                  <Link to="/profile">Profile</Link>
+                  <Link to="/profile" className="hover:underline">Profile</Link>
                 </li>
                 <li>
-                  <Link to="/costumer-restaurants">Restaurants</Link>
+                  <Link to="/costumer-restaurants" className="hover:underline">Restaurants</Link>
                 </li>
                 <li>
-                  <button onClick={handleLogout}>Logout</button>
+                  <button onClick={handleLogout} className="hover:underline">Logout</button>
                 </li>
                 {isAdmin && (
                   <>
                     <li>
-                      <Link to="/admin-feedback">All Feedback</Link>
+                      <Link to="/admin-feedback" className="hover:underline">All Feedback</Link>
                     </li>
                     <li>
-                      <Link to="/admin-menus">All Menus</Link>
+                      <Link to="/admin-menus" className="hover:underline">All Menus</Link>
                     </li>
                     <li>
-                      <Link to="/admin-restaurants">All Restaurants</Link>
+                      <Link to="/admin-restaurants" className="hover:underline">All Restaurants</Link>
                     </li>
                   </>
                 )}
@@ -76,19 +76,19 @@ const Layout = () => {
             ) : (
               <>
                 <li>
-                  <Link to="/login">Login</Link>
+                  <Link to="/login" className="hover:underline">Login</Link>
                 </li>
                 <li>
-                  <Link to="/">Home</Link>
+                  <Link to="/" className="hover:underline">Home</Link>
                 </li>
                 <li>
-                  <Link to="/signup">Signup</Link>
+                  <Link to="/signup" className="hover:underline">Signup</Link>
                 </li>
               </>
             )}
           </ul>
         </nav>
-        <main>
+        <main className="flex-grow p-6 bg-gray-200">
           <Outlet />
         </main>
       </div>

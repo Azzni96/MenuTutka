@@ -55,20 +55,45 @@ const AddRestaurant = () => {
   };
 
   if (!isAdmin) {
-    return  // Provide feedback if the user is not an admin
+    return <div className="text-center text-red-500">You are not authorized to add a restaurant.</div>; // Provide feedback if the user is not an admin
   }
 
   return (
-    <div>
-      <h1>Add Restaurant</h1>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="name" placeholder="Name" onChange={handleChange} />
-        <input type="text" name="address" placeholder="Address" onChange={handleChange} />
-        <input type="text" name="phone" placeholder="Phone" onChange={handleChange} />
-        <input type="file" name="image" onChange={handleChange} />
-        <button type="submit">Add Restaurant</button>
+    <div className="max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-lg text-center">
+      <h1 className="text-3xl font-bold mb-6 text-black">Add Restaurant</h1>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            onChange={handleChange}
+            className="border border-gray-300 p-2 w-full rounded-lg text-black"
+          />
+          <input
+            type="text"
+            name="address"
+            placeholder="Address"
+            onChange={handleChange}
+            className="border border-gray-300 p-2 w-full rounded-lg text-black"
+          />
+          <input
+            type="text"
+            name="phone"
+            placeholder="Phone"
+            onChange={handleChange}
+            className="border border-gray-300 p-2 w-full rounded-lg text-black"
+          />
+          <input
+            type="file"
+            name="image"
+            onChange={handleChange}
+            className="border border-gray-300 p-2 w-full rounded-lg text-black"
+          />
+        </div>
+        <button type="submit" className="bg-blue-600 text-white p-2 rounded-lg transition duration-300 ease-in-out hover:bg-blue-800">Add Restaurant</button>
       </form>
-      {message && <p>{message}</p>}
+      {message && <p className="mt-4 text-green-500">{message}</p>}
     </div>
   );
 };

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import './Signup.css';
 
 const Signup = () => {
   const [formData, setFormData] = useState({ name: "", email: "", password: "", confirmPassword: "" });
@@ -28,16 +27,17 @@ const Signup = () => {
   };
 
   return (
-    <div className="container">
-      <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="name" placeholder="Name" onChange={handleChange} />
-        <input type="email" name="email" placeholder="Email" onChange={handleChange} />
-        <input type="password" name="password" placeholder="Password" onChange={handleChange} />
-        <button type="submit">Sign Up</button>
+    <div className="max-w-md mx-auto p-8 bg-white rounded-lg shadow-lg">
+      <h1 className="text-3xl font-bold mb-6 text-gray-800">Sign Up</h1>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <input type="text" name="name" placeholder="Name" onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-lg text-black" />
+        <input type="email" name="email" placeholder="Email" onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-lg text-black" />
+        <input type="password" name="password" placeholder="Password" onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-lg text-black" />
+        <input type="password" name="confirmPassword" placeholder="Confirm Password" onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-lg text-black" />
+        <button type="submit" className="w-full px-4 py-2 bg-blue-600 text-white font-bold rounded-lg transition duration-300 ease-in-out hover:bg-blue-800">Sign Up</button>
       </form>
-      <button onClick={handleLoginClick}>Already have an account? Login</button>
-      {message && <p>{message}</p>}
+      <button onClick={handleLoginClick} className="w-full mt-4 px-4 py-2 bg-gray-600 text-white font-bold rounded-lg transition duration-300 ease-in-out hover:bg-gray-800">Already have an account? Login</button>
+      {message && <p className="mt-4 text-red-600">{message}</p>}
     </div>
   );
 };

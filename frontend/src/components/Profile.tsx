@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-import './Profile.css'; // Add this line
 
 const Profile = () => {
   const [profileData, setProfileData] = useState({ name: "", email: "" });
@@ -41,15 +40,17 @@ const Profile = () => {
   };
 
   return (
-    <>
-      <div>
-        <h1>Profile</h1>
-        {message && <p>{message}</p>}
-        <p>Name: {profileData.name}</p>
-        <p>Email: {profileData.email}</p>
-        <button onClick={handleLogout}>Logout</button>
+    <div className="max-w-md mx-auto p-8 bg-white rounded-lg shadow-md">
+      <h1 className="text-2xl font-bold mb-4 text-center text-gray-800">Profile</h1>
+      {message && <p className="text-red-500 text-center mb-4">{message}</p>}
+      <div className="grid grid-cols-1 gap-4 text-center">
+        <p className="text-gray-700">Name: {profileData.name}</p>
+        <p className="text-gray-700">Email: {profileData.email}</p>
       </div>
-    </>
+      <button onClick={handleLogout} className="mt-4 px-4 py-2 bg-blue-600 text-white font-bold rounded-lg transition duration-300 ease-in-out hover:bg-blue-800 mx-auto block">
+        Logout
+      </button>
+    </div>
   );
 };
 

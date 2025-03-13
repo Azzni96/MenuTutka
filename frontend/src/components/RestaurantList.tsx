@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Restaurant } from "../types/restaurant"; // Updated import path
+import { Restaurant } from "../types/restaurant";
 import { useNavigate } from 'react-router-dom';
-import './RestaurantList.css'; // Add this line
 
 const RestaurantList = () => {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
@@ -45,21 +44,25 @@ const RestaurantList = () => {
   };
 
   return (
-    <div className="container">
-      <h1>Restaurants</h1>
-      <ul>
+    <div className="max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-lg text-center">
+      <h1 className="text-3xl font-bold mb-6 text-black">Restaurants</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
         {restaurants.map((restaurant) => (
-          <li key={restaurant.id}>
-            <h2 onClick={() => handleRestaurantClick(restaurant.id)} style={{ cursor: 'pointer' }}>
+          <div key={restaurant.id} className="p-6 border border-gray-300 rounded-lg bg-gray-100 shadow-md hover:shadow-lg transition-shadow duration-300 text-center">
+            <h2 onClick={() => handleRestaurantClick(restaurant.id)} className="text-2xl font-semibold text-black cursor-pointer hover:underline">
               {restaurant.name}
             </h2>
-            <p>{restaurant.address}</p>
-            <p>{restaurant.phone}</p>
-            {restaurant.image && <img src={restaurant.image} alt={restaurant.name} />}
-            <button onClick={() => handleFeedbackClick(restaurant.id)}>View Feedback</button>
-          </li>
+            <p className="max-w-full overflow-clip font-bold text-nowrap text-ellipsis text-black mb-4">{restaurant.address}</p>
+            <p className="text-black">{restaurant.phone}</p>
+            {restaurant.image && <img src={restaurant.image} alt={restaurant.name} className="h-72 w-full rounded-t-md object-cover mt-4" />}
+            <div className="my-2 rounded-md border border-gray-400 p-2">
+              <button onClick={() => handleFeedbackClick(restaurant.id)} className="block w-full cursor-pointer bg-blue-600 p-2 text-center text-white font-semibold transition-all duration-500 ease-in-out hover:bg-blue-800 mb-2">
+                View Feedback
+              </button>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

@@ -53,21 +53,21 @@ const AdminMenuList = () => {
   };
 
   return (
-    <div>
-      <h1>All Menus</h1>
-      {error && <p>{error}</p>}
-      <ul>
+    <div className="container mx-auto p-4 bg-white rounded-lg shadow-lg">
+      <h1 className="text-2xl font-bold mb-4 text-black">All Menus</h1>
+      {error && <p className="text-red-500">{error}</p>}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
         {Array.isArray(menus) && menus.map((menu) => (
-          <li key={menu.id}>
-            <h2>{menu.name}</h2>
-            <p>{menu.description}</p>
-            <p>Price: {menu.price}</p>
-            <p>Restaurant ID: {menu.restaurant_id}</p>
-            {menu.image && <img src={menu.image} alt={menu.name} />}
-            <button onClick={() => handleDelete(menu.id)}>Delete</button>
-          </li>
+          <div key={menu.id} className="border border-gray-300 p-4 rounded-lg shadow-md">
+            <h2 className="text-xl font-semibold text-black">{menu.name}</h2>
+            <p className="text-black">{menu.description}</p>
+            <p className="text-black">Price: {menu.price}</p>
+            <p className="text-black">Restaurant ID: {menu.restaurant_id}</p>
+            {menu.image && <img src={menu.image} alt={menu.name} className="w-full h-auto mt-2 rounded-lg" />}
+            <button onClick={() => handleDelete(menu.id)} className="mt-2 bg-red-600 text-white px-4 py-2 rounded-lg transition duration-300 ease-in-out hover:bg-red-800">Delete</button>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

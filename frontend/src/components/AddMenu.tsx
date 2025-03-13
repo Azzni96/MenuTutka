@@ -64,17 +64,19 @@ const AddMenu = () => {
   }
 
   return (
-    <div>
-      <h1>Add Menu</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="container mx-auto p-4 bg-white rounded-lg shadow-lg">
+      <h1 className="text-2xl font-bold mb-4 text-black">Add Menu</h1>
+      <form onSubmit={handleSubmit} className="space-y-4">
         <input type="hidden" name="restaurantId" value={restaurantId} />
-        <input type="text" name="name" placeholder="Name" onChange={handleChange} />
-        <input type="text" name="description" placeholder="Description" onChange={handleChange} />
-        <input type="text" name="price" placeholder="Price" onChange={handleChange} />
-        <input type="file" name="image" onChange={handleChange} />
-        <button type="submit">Add Menu</button>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <input type="text" name="name" placeholder="Name" onChange={handleChange} className="w-full p-2 border border-gray-300 rounded-lg text-black" />
+          <input type="text" name="description" placeholder="Description" onChange={handleChange} className="w-full p-2 border border-gray-300 rounded-lg text-black" />
+          <input type="text" name="price" placeholder="Price" onChange={handleChange} className="w-full p-2 border border-gray-300 rounded-lg text-black" />
+          <input type="file" name="image" onChange={handleChange} className="w-full p-2 border border-gray-300 rounded-lg text-black" />
+        </div>
+        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded-lg transition duration-300 ease-in-out hover:bg-blue-800">Add Menu</button>
       </form>
-      {message && <p>{message}</p>}
+      {message && <p className="mt-4 text-green-500">{message}</p>}
     </div>
   );
 };

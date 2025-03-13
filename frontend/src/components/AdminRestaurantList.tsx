@@ -55,28 +55,28 @@ const AdminRestaurantList = () => {
   };
 
   return (
-    <div>
-      <div>
-        <AddRestaurant/>
+    <div className="p-4 bg-white rounded-lg shadow-lg">
+      <div className="mb-4">
+        <AddRestaurant />
       </div>
-      <h1>All Restaurants</h1>
-      {error && <p>{error}</p>}
-      <ul>
+      <h1 className="text-2xl font-bold mb-4 text-black">All Restaurants</h1>
+      {error && <p className="text-red-500">{error}</p>}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
         {Array.isArray(restaurants) && restaurants.map((restaurant) => (
-          <li key={restaurant.id}>
-            <h2>{restaurant.name}</h2>
-            <p>{restaurant.address}</p>
-            <p>{restaurant.phone}</p>
-            {restaurant.image && <img src={restaurant.image} alt={restaurant.name} />}
-            <button onClick={() => handleDelete(restaurant.id)}>Delete</button>
-          </li>
+          <div key={restaurant.id} className="border border-gray-300 p-4 rounded-lg shadow-md">
+            <h2 className="text-xl font-bold text-black">{restaurant.name}</h2>
+            <p className="text-black">{restaurant.address}</p>
+            <p className="text-black">{restaurant.phone}</p>
+            {restaurant.image && <img src={restaurant.image} alt={restaurant.name} className="mt-2 rounded-lg" />}
+            <button onClick={() => handleDelete(restaurant.id)} className="bg-red-600 text-white p-2 rounded-lg mt-2 transition duration-300 ease-in-out hover:bg-red-800">Delete</button>
+          </div>
         ))}
-      </ul>
-      <div></div>
-        <h2>Restaurant List</h2>
-        <RestaurantList /> {/* Include the RestaurantList component */}
       </div>
-
+      <div className="mt-8">
+        <h2 className="text-xl font-bold text-black">Restaurant List</h2>
+        <RestaurantList />
+      </div>
+    </div>
   );
 };
 
