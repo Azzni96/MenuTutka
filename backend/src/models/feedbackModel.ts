@@ -9,7 +9,7 @@ export type Feedback = {
     created_at?: Date;
 };
 
-// Lisää palaute
+// إضافة feedback
 export const addFeedback = async (feedback: Feedback): Promise<void> => {
     const conn = await pool.getConnection();
     await conn.query(
@@ -40,4 +40,29 @@ export const deleteFeedback = async (id: number): Promise<void> => {
     const conn = await pool.getConnection();
     await conn.query("DELETE FROM feedback WHERE id = ?", [id]);
     conn.release();
+};
+export const getAverageRatingByRestaurant = async (restaurant_id: number): Promise<number | null> => {
+    const conn = await pool.getConnection();
+    try {
+        console.log("Fetching rating for restaurant_id:", restaurant_id);
+
+        const rows: any = await conn.query(
+            "SELECT AVG(rating) AS average FROM feedback WHERE restaurant_id = ?",
+            [restaurant_id]
+        );
+        console.log("Query rows: ", rows);
+
+        const avg = rows[0]?.average || null;
+
+        if (avg === null) {
+            return null;
+        }
+
+        return parseFloat(avg);
+    } catch (err) {
+        console.error("DB ERROR:", err);
+        throw err;
+    } finally {
+        conn.release();
+    }
 };

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Restaurant } from "../types/restaurant"; // Updated import path
 import { useNavigate } from 'react-router-dom';
-import './RestaurantList.css'; // Add this line
+import './RestaurantList.css'; // Keep your css file
 
 const RestaurantListforcostmer = () => {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
@@ -23,7 +23,16 @@ const RestaurantListforcostmer = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        setRestaurants(response.data);
+
+        // Fetch rating for each restaurant
+        const restaurantsWithRatings = await Promise.all(response.data.map(async (restaurant: Restaurant) => {
+          const ratingResponse = await axios.get(`/api/feedbacks/${restaurant.id}/rating`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          return { ...restaurant, rating: ratingResponse.data.rating };
+        }));
+
+        setRestaurants(restaurantsWithRatings);
       } catch (error: any) {
         if (error.response?.status === 401) {
           navigate("/login");
@@ -44,18 +53,44 @@ const RestaurantListforcostmer = () => {
     navigate(`/restaurants/${restaurantId}/menus`);
   };
 
+  const renderStars = (rating: number) => {
+    const fullStars = Math.floor(rating);
+    const halfStar = rating % 1 >= 0.5;
+    const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+
+    return (
+      <div className="flex justify-center items-center space-x-1 mt-1">
+        {Array(fullStars).fill(0).map((_, i) => (
+          <span key={`full-${i}`} className="text-yellow-400 text-xl">★</span>
+        ))}
+        {halfStar && <span className="text-yellow-400 text-xl">⯪</span>}
+        {Array(emptyStars).fill(0).map((_, i) => (
+          <span key={`empty-${i}`} className="text-gray-400 text-xl">☆</span>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div className="container mx-auto p-4 bg-white rounded-lg shadow-lg">
       <h1 className="text-2xl font-bold mb-4 text-black">Restaurants</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
         {restaurants.map((restaurant) => (
           <div key={restaurant.id} className="border border-gray-300 p-4 rounded-lg shadow-md">
-            <h2 onClick={() => handleRestaurantClick(restaurant.id)} className="text-xl font-bold text-black cursor-pointer">
+            <h2 onClick={() => handleRestaurantClick(restaurant.id)} className="text-xl text-center font-bold text-black cursor-pointer">
               {restaurant.name}
             </h2>
-            <p className="text-black">{restaurant.address}</p>
-            <p className="text-black">{restaurant.phone}</p>
+            <p className="text-black text-center">{restaurant.address}</p>
+            <p className="text-black text-center">{restaurant.phone}</p>
             {restaurant.image && <img src={restaurant.image} alt={restaurant.name} className="mt-2 rounded-lg" />}
+
+            {/* عرض التقييم والنجوم */}
+            <div className="mt-2 text-black text-center">
+              <span className="font-semibold">Rating:</span>{" "}
+              <span>{restaurant.rating ? restaurant.rating.toFixed(1) : "No rating"}</span> / 5
+              {restaurant.rating && renderStars(restaurant.rating)}
+            </div>
+
             <button onClick={() => handleFeedbackClick(restaurant.id)} className="bg-blue-600 text-white p-2 rounded-lg mt-2 transition duration-300 ease-in-out hover:bg-blue-800">View Feedback</button>
           </div>
         ))}
@@ -65,4 +100,3 @@ const RestaurantListforcostmer = () => {
 };
 
 export default RestaurantListforcostmer;
-

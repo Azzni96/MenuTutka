@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { addFeedback, getAllFeedback, getFeedbackByRestaurant, deleteFeedback } from "../models/feedbackModel";
+import { addFeedback, getAllFeedback, getFeedbackByRestaurant, deleteFeedback, getAverageRatingByRestaurant } from "../models/feedbackModel";
 
 export const submitFeedback = async (req: Request, res: Response) => {
     try {
@@ -54,6 +54,23 @@ export const removeFeedback = async (req: Request, res: Response) => {
         await deleteFeedback(parseInt(id));
         res.status(200).json({ message: "Feedback deleted successfully" });
     } catch (error) {
+        res.status(500).json({ error: (error as Error).message });
+    }
+};
+export const getRestaurantRating = async (req: Request, res: Response) => {
+    try {
+        const { restaurant_id } = req.params;
+        console.log("Request received for /rating with restaurant_id =", restaurant_id);
+        const avg = await getAverageRatingByRestaurant(parseInt(restaurant_id));
+
+        if (avg === null) {
+            res.status(404).json({ message: "No ratings found for this restaurant" });
+            return;
+        }
+
+        res.status(200).json({ rating: avg });
+    } catch (error) {
+        console.error("Controller Error: ", error);
         res.status(500).json({ error: (error as Error).message });
     }
 };

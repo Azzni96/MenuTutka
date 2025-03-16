@@ -3,22 +3,22 @@ import {
     submitFeedback,
     fetchFeedback,
     fetchFeedbackByRestaurant,
-    removeFeedback
+    removeFeedback,
+    getRestaurantRating
 } from "../controllers/feedbackController";
 import { authenticate, isAdmin } from "../utils/authenticate";
 
 const router = express.Router();
 
-// Lisää palaute (Vain kirjautuneet käyttäjät)
-router.post("/submit", authenticate, submitFeedback);
+// أولاً: route الخاص بـ rating 
+router.get("/:restaurant_id/rating", getRestaurantRating);
 
-// Hae kaikki palautteet (Vain admin voi hakea)
-router.get("/", authenticate, isAdmin, fetchFeedback);
-
-// Hae tietyn ravintolan palautteet
+// ثانياً: route الخاص بـ feedbacks العادية
 router.get("/:restaurant_id", fetchFeedbackByRestaurant);
 
-// Poista palaute (Vain admin voi poistaa, lisätään tarvittaessa isAdmin-middleware)
+// باقي الراوتات
+router.post("/submit", authenticate, submitFeedback);
+router.get("/", authenticate, isAdmin, fetchFeedback);
 router.delete("/:id", authenticate, isAdmin, removeFeedback);
 
 export default router;
