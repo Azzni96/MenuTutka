@@ -1,41 +1,80 @@
-Tämä on täydellinen full-stack projekti! Tässä on rakenteellinen yhteenveto siitä, mitä sinun pitää rakentaa:
+# Full Stack Restaurant & Menu App (Admin + Customer)
 
-✅ Teknologiat:
-Backend: Node.js + Express + TypeScript + MariaDB
-Frontend: React + TypeScript + Vite
-🏠 Home page:
-Selittää miten sivusto toimii
-"Rekisteröidy" ja "Kirjaudu sisään" -painikkeet
-Linkki "Unohtuiko salasana?" -sivulle
-🔐 Authentication:
-Sign Up: (Name, Email, Password, Confirm Password)
-Sign In: (Email, Password)
-Reset Password:
-Lähettää sähköpostiin linkin salasanan nollaamiseen (reset-token logiikka)
-Form: uusi salasana + vahvistus
-👤 Kun kirjautuu sisään:
-Näyttää: Profile Name + Email
-👑 Admin-käyttäjälle:
-Dashboard jossa näkyy:
-Add + Get + Delete + Update:
-🍽️ Restaurant
-📋 Menu
-💬 Feedback
-Admin voi lisätä uuden Restaurantin ja Menun, ja muokata/poistaa niitä.
-🙋‍♂️ Customer-käyttäjälle:
-Näyttää vain:
-Get: Restaurant + Menu
-Get + Add: Feedback
-Customer voi:
-Katsoa ravintolat + niiden menut 🍕
-Antaa ja katsoa muiden käyttäjien feedbackit 💬
-Nähdä ravintolan ratingin ⭐
-Antaa like Menulle ❤️
-✨ Lisäominaisuudet:
-Like-järjestelmä Menulle (yksi like per käyttäjä / menu)
-Feedback sisältää myös ⭐ tähdillä ratingin
-Admin saa näkymään kaikki käyttäjien feedbackit ja voi myös poistaa niitä
-📐 Frontend navigointi:
-Home | Sign Up | Sign In | Reset Password | Profile | Logout
-Adminin puolella lisäksi: Admin Panel (Restaurant, Menu, Feedback CRUD)
-Customer puolella: View Restaurants | Menus | Feedback | Like Menu
+Tämä projekti on full-stack web-sovellus, jossa on roolipohjainen käyttöliittymä. Sovellus on rakennettu seuraavilla teknologioilla:
+
+### 🔧 Teknologiat:
+- **Backend**: Node.js + Express + TypeScript + MariaDB
+- **Frontend**: React + TypeScript + Vite
+
+---
+
+## 🏠 Home Page
+- Selittää käyttäjälle miten sivusto toimii ja mitä rooleja siinä on (Admin / Customer)
+- Linkit: `Sign Up`, `Sign In`, `Reset Password`
+
+---
+
+## 🔐 Käyttäjäominaisuudet
+
+### **1) Sign Up**
+- Luo käyttäjätili
+- Kentät: `Name`, `Email`, `Password`, `Confirm Password`
+
+### **2) Sign In**
+- Kirjautuminen sähköpostilla ja salasanalla
+
+### **3) Reset Password**
+- Jos salasana unohtuu, käyttäjä voi pyytää sähköpostiinsa linkin, jolla salasanan voi vaihtaa.
+
+### **4) Profiili**
+- Kun käyttäjä kirjautuu sisään, näkyy: `Name + Email`
+
+---
+
+## 👑 Admin-rooli
+Admin-käyttäjälle on omat hallintatyökalut:
+
+- Lisää, muokkaa ja poista:
+  - 🍽️ Ravintolat (`Restaurant`)
+  - 📋 Menut (`Menu`)
+  - 💬 Palautteet (`Feedback`)
+- Admin voi hallita kaikkia tietoja CRUD-toiminnallisuuksilla.
+
+---
+
+## 🙋‍♂️ Customer-rooli
+Tavalliselle käyttäjälle (Customer) näkyy:
+
+- Näytä kaikki ravintolat ja niiden menut
+- Katso ja lisää palautteita
+- Katso muiden käyttäjien palautteet ja näe ravintolan keskiarvoinen ⭐ rating
+- Tykkää menuista ❤️
+
+---
+
+## 🔗 Linkit
+- `/register` ➡ Luo uusi käyttäjä
+- `/login` ➡ Kirjaudu sisään
+- `/reset-password` ➡ Salasanan palautus
+- `/profile` ➡ Käyttäjäprofiili
+- `/admin` ➡ Admin dashboard (vain admin)
+- `/restaurants` ➡ Ravintolat (Customer näkymä)
+
+---
+
+## 🧩 Roolipohjainen näkymä:
+| Rooli     | Restaurant | Menu      | Feedback      | Like Menu |
+|-----------|------------|-----------|---------------|-----------|
+| **Admin**     | Add, Get, Delete, Update | Add, Get, Delete, Update | Add, Get, Delete, Update | Ei käytössä |
+| **Customer**  | Get        | Get       | Add, Get     | Like      |
+
+---
+
+## 🔒 Turvallisuus
+- JWT token-pohjainen autentikointi
+- Sähköpostivahvistus salasanan palautuksessa
+- Roolipohjaiset middlewaret (Admin / Customer)
+
+---
+
+## 📂 Projektirakenne
