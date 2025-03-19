@@ -65,7 +65,7 @@ Tavalliselle käyttäjälle (Customer) näkyy:
 ## 🧩 Roolipohjainen näkymä:
 | Rooli     | Restaurant | Menu      | Feedback      | Like Menu |
 |-----------|------------|-----------|---------------|-----------|
-| **Admin**     | Add, Get, Delete, Update | Add, Get, Delete, Update | Add, Get, Delete, Update | Ei käytössä |
+| **Admin**     | Add, Get, Delete, Update | Add, Get, Delete, Update | Add, Get, Delete, Update |  käytössä |
 | **Customer**  | Get        | Get       | Add, Get     | Like      |
 
 ---
@@ -75,6 +75,5 @@ Tavalliselle käyttäjälle (Customer) näkyy:
 - Sähköpostivahvistus salasanan palautuksessa
 - Roolipohjaiset middlewaret (Admin / Customer)
 
----
 
-## 📂 Projektirakenne
+
