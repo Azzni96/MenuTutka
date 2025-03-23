@@ -1,5 +1,8 @@
 # Full Stack Restaurant & Menu App (Admin + Customer)
 
+
+Valmis branch on tailwind
+
 Tämä projekti on full-stack web-sovellus, jossa on roolipohjainen käyttöliittymä. Sovellus on rakennettu seuraavilla teknologioilla:
 
 ### 🔧 Teknologiat:
